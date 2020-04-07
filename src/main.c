@@ -33,7 +33,7 @@ void cleanup_literal(
                 lit_end = move_memory_block(ed_brace, ch, lit_end);
         }
 
-        truncate(lit_end);
+        truncate(lit);
 }
 
 void split_tokens(
@@ -225,9 +225,7 @@ int main(
         struct node_pool *nodes = init_node_pool(NODES_POOL_SIZE);
 
         for (int i = 1; i < argc; i++) { // skip program name
-                char *base_name = argv[i];
-                base_name = pick_filename(base_name);
-                remove_file_ext(base_name);
+                char *base_name = extract_filename(argv[i]);
 
                 char input[DEF_STR_SIZE];
                 snprintf(input, DEF_STR_SIZE, "%s.hbs", argv[i]);

@@ -4,11 +4,15 @@
 #include <stddef.h>
 
 void replace_chars(
-        char *str_sz,
-        size_t str_len
+        char *str,
+        size_t len
 );
 
 char *skip_spaces(
+        char *str
+);
+
+void truncate(
         char *str
 );
 
@@ -18,15 +22,7 @@ char *move_memory_block(
         char *end
 );
 
-void truncate(
-        char *str_end
-);
-
-void remove_file_ext(
-        char *path
-);
-
-char *pick_filename(
+char *extract_filename(
         char *path
 );
 

@@ -11,3 +11,9 @@ endif()
 
 add_executable(${PROJECT_NAME} 
     src/main.c src/node_pool.c src/str_pool.c src/string_utils.c)
+
+enable_testing()
+add_executable(string_utils_test
+    src/string_utils.c
+    src/string_utils_test.c)
+add_test(string_utils string_utils_test)

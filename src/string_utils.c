@@ -3,13 +3,12 @@
 #include "string_utils.h"
 
 void replace_chars(
-        char *str_sz,
-        size_t str_len
+        char *str,
+        size_t len
 ) {
         size_t rn_pos;
-        while ((rn_pos = strcspn(str_sz, "\"\r\n")) != str_len) {
-                str_sz[rn_pos] = (str_sz[rn_pos] == '"') ? '\'' : ' ';
-        }
+        while ((rn_pos = strcspn(str, "\"\r\n")) != len)
+                str[rn_pos] = (str[rn_pos] == '"') ? '\'' : ' ';
 }
 
 char *skip_spaces(
@@ -20,39 +19,36 @@ char *skip_spaces(
         return str;
 }
 
+void truncate(
+        char *str
+) {
+        char *str_end = str + strlen(str) - 1; // at last char
+        while (*str_end == ' ' && str_end >= str)
+                str_end--;
+        *(str_end + 1) = '\0'; // go back and replace last space
+}
+
 char *move_memory_block(
         char *dst,
         char *beg,
         char *end
 ) {
-        if (beg != dst) {
-                ptrdiff_t diff = beg - dst;
-                memmove(dst, beg, end - beg + 1); // include '\0'
-                end -= diff;
-        }
-        return end;
+        if (beg == dst)
+                return end;
+        ptrdiff_t diff = beg - dst;
+        memmove(dst, beg, end - beg + 1); // include '\0'
+        return end - diff;
 }
 
-void truncate(
-        char *str_end
-) {
-        while (*(--str_end) == ' ');
-        *(str_end + 1) = '\0';
-}
-
-void remove_file_ext(
-        char *path
-) {
-        char *dot = strchr(path, '.');
-        if (dot != NULL)
-                *dot = '\0';
-}
-
-char *pick_filename(
+char *extract_filename(
         char *path
 ) {
         char *sep = strrchr(path, '/');
         if (sep == NULL)
                 sep = strrchr(path, '\\');
-        return (sep == NULL) ? path : sep + 1;
+        path = (sep == NULL) ? path : sep + 1; // skip separator char
+        char *dot = strchr(path, '.');
+        if (dot != NULL)
+                *dot = '\0';
+        return path;
 }
