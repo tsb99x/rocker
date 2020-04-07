@@ -2,8 +2,12 @@ cmake_minimum_required(VERSION 3.7)
 project(rocker C)
 set(CMAKE_C_STANDARD 11)
 
-if(NOT MSVC)
+add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+if(MSVC)
+    add_compile_options(/W3 /WX)
+else()
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-add_executable(${PROJECT_NAME} src/main.c src/node.c src/str_pool.c)
+add_executable(${PROJECT_NAME} 
+    src/main.c src/node_pool.c src/str_pool.c src/string_utils.c)

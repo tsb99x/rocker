@@ -4,7 +4,8 @@
 #include <stddef.h>
 
 #include "str_pool.h"
-#include "node.h"
+#include "node_pool.h"
+#include "string_utils.h"
 
 long file_size(
         FILE *file
@@ -13,44 +14,6 @@ long file_size(
         long size = ftell(file);
         fseek(file, 0, SEEK_SET);
         return size;
-}
-
-void replace_chars(
-        char *str_sz,
-        size_t str_len
-) {
-        size_t rn_pos;
-        while ((rn_pos = strcspn(str_sz, "\"\r\n")) != str_len) {
-                str_sz[rn_pos] = (str_sz[rn_pos] == '"') ? '\'' : ' ';
-        }
-}
-
-char *skip_spaces(
-        char *str
-) {
-        while (*str == ' ' && *str != '\0')
-                str++;
-        return str;
-}
-
-char *move_memory_block(
-        char *dst,
-        char *beg,
-        char *end
-) {
-        if (beg != dst) {
-                ptrdiff_t diff = beg - dst;
-                memmove(dst, beg, end - beg + 1); // include '\0'
-                end -= diff;
-        }
-        return end;
-}
-
-void truncate(
-        char *str_end
-) {
-        while (*(--str_end) == ' ');
-        *(str_end + 1) = '\0';
 }
 
 void cleanup_literal(
@@ -75,7 +38,7 @@ void cleanup_literal(
 
 void split_tokens(
         struct str_pool *strings,
-        struct nodes_pool *nodes,
+        struct node_pool *nodes,
         char *buf,
         char *buf_end
 ) {
@@ -193,7 +156,7 @@ void output_copy_process(
 void generate_and_output_to(
         const char *filename,
         const char *base_name,
-        struct nodes_pool *nodes
+        struct node_pool *nodes
 ) {
         FILE *file = fopen(filename, "w");
         if (file == NULL) {
@@ -245,27 +208,6 @@ void generate_and_output_to(
         fclose(file);
 }
 
-// TEST
-
-void remove_file_ext(
-        char *path
-) {
-        char *dot = strchr(path, '.');
-        if (dot != NULL)
-                *dot = '\0';
-}
-
-// TEST
-
-char *pick_filename(
-        char *path
-) {
-        char *sep = strrchr(path, '/');
-        if (sep == NULL)
-                sep = strrchr(path, '\\');
-        return (sep == NULL) ? path : sep + 1;
-}
-
 #define STR_POOL_SIZE 65535
 #define NODES_POOL_SIZE 256
 #define DEF_STR_SIZE 128
@@ -280,7 +222,7 @@ int main(
         }
 
         struct str_pool *strings = init_str_pool(STR_POOL_SIZE);
-        struct nodes_pool *nodes = init_nodes_pool(NODES_POOL_SIZE);
+        struct node_pool *nodes = init_node_pool(NODES_POOL_SIZE);
 
         for (int i = 1; i < argc; i++) { // skip program name
                 char *base_name = argv[i];
@@ -302,12 +244,12 @@ int main(
                 generate_and_output_to(output, base_name, nodes);
 
                 cleanup_str_pool(strings);
-                cleanup_nodes_pool(nodes);
+                cleanup_node_pool(nodes);
 
                 printf("Success!\n");
         }
 
-        destroy_nodes_pool(nodes);
+        destroy_node_pool(nodes);
         destroy_str_pool(strings);
         return EXIT_SUCCESS;
 }
