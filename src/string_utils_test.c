@@ -41,6 +41,14 @@ void test_skip_spaces(
         strcpy(str, "string without spaces");
         res = skip_spaces(str);
         REQUIRE(res == str);
+
+        strcpy(str, "   ");
+        res = skip_spaces(str);
+        REQUIRE(res == str + 3);
+
+        strcpy(str, "");
+        res = skip_spaces(str);
+        REQUIRE(res == str);
 }
 
 void test_truncate(
@@ -103,6 +111,14 @@ void test_extract_filename(
         REQUIRE(!strcmp(res, "file"));
 
         strcpy(str, "C:\\dir\\file.txt");
+        res = extract_filename(str);
+        REQUIRE(!strcmp(res, "file"));
+
+        strcpy(str, "file.txt");
+        res = extract_filename(str);
+        REQUIRE(!strcmp(res, "file"));
+
+        strcpy(str, "file");
         res = extract_filename(str);
         REQUIRE(!strcmp(res, "file"));
 }

@@ -14,7 +14,7 @@ void replace_chars(
 char *skip_spaces(
         char *str
 ) {
-        while (*str == ' ' && *str != '\0')
+        while (*str == ' ')
                 str++;
         return str;
 }
