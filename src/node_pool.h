@@ -1,5 +1,4 @@
-#ifndef __NODE_POOL_H__
-#define __NODE_POOL_H__
+#pragma once
 
 #include "node.h"
 
@@ -20,5 +19,3 @@ void for_each_node(
         void *state,
         node_it *handler
 );
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef __NODE_H__
-#define __NODE_H__
+#pragma once
 
 enum node_type {
         LITERAL,
@@ -10,5 +9,3 @@ struct node {
         enum node_type type;
         const char *value;
 };
-
-#endif

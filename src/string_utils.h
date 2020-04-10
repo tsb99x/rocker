@@ -1,5 +1,4 @@
-#ifndef __STRING_UTILS_H__
-#define __STRING_UTILS_H__
+#pragma once
 
 #include <stddef.h>
 
@@ -25,5 +24,3 @@ char *move_memory_block(
 char *extract_filename(
         char *path
 );
-
-#endif

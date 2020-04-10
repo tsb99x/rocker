@@ -1,5 +1,4 @@
-#ifndef __GENERATOR_H__
-#define __GENERATOR_H__
+#pragma once
 
 #include <stdio.h>
 
@@ -8,5 +7,3 @@ void print(
         const char *base_name,
         struct node_pool *nodes
 );
-
-#endif

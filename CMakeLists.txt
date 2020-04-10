@@ -10,7 +10,7 @@ else()
 endif()
 
 add_executable(${PROJECT_NAME} 
-    src/main.c src/node_pool.c src/str_pool.c src/string_utils.c)
+    src/main.c src/node_pool.c src/str_pool.c src/string_utils.c src/printer.c)
 
 enable_testing()
 add_executable(string_utils_test

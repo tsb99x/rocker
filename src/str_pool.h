@@ -1,5 +1,4 @@
-#ifndef __STR_POOL__
-#define __STR_POOL__
+#pragma once
 
 #define PREFIX str
 #define T char
@@ -10,5 +9,3 @@ char *copy_into_pool(
         const char *str,
         size_t len
 );
-
-#endif
