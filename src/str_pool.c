@@ -1,5 +1,7 @@
 #include <string.h>
 
+#include "macro.h"
+
 #include "str_pool.h"
 
 #define PREFIX str
@@ -12,10 +14,8 @@ char *copy_into_pool(
         size_t len
 ) {
         char *ptr = self->last;
-        if (ptr + len >= self->limit) {
-                fprintf(stderr, "Buffer is exhausted\n");
-                exit(EXIT_FAILURE);
-        }
+        if (ptr + len >= self->limit)
+                PANIC("String pool is exhausted\n");
         memcpy(ptr, str, len);
         self->last += len;
         *self->last = '\0';

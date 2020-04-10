@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "macro.h"
 
 #include "node_pool.h"
 
@@ -15,10 +14,8 @@ struct node *emplace_node(
         struct node *ptr = self->last;
         ptr -> type = type;
         ptr -> value = value;
-        if (++self->last >= self->limit) {
-                fprintf(stderr, "Buffer is exhausted\n");
-                exit(EXIT_FAILURE);
-        }
+        if (++self->last >= self->limit)
+                PANIC("Node pool is exhausted\n");
         return ptr;
 }
 

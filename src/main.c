@@ -1,8 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <stddef.h>
 
+#include "macro.h"
 #include "str_pool.h"
 #include "node_pool.h"
 #include "string_utils.h"
@@ -86,17 +85,15 @@ size_t load_file_to_buf(
         size_t buf_size
 ) {
         FILE *file = fopen(filename, "rb");
-        if (file == NULL) {
-                fprintf(stderr, "Error opening file %s\n", filename);
-                exit(EXIT_FAILURE);
-        }
+        if (file == NULL)
+                PANIC("Error opening file %s\n", filename);
 
         long size = file_size(file);
         if (size >= (long) buf_size) {
-                fprintf(stderr, "No enough memory to load source file\n");
                 fclose(file);
-                exit(EXIT_FAILURE);
+                PANIC("No enough memory to load source file\n");
         }
+
         fread(buf, sizeof(char), size, file);
         src_buf[size] = '\0';
 
@@ -108,10 +105,8 @@ int main(
         int argc,
         char **argv
 ) {
-        if (argc < 2) {
-                fprintf(stderr, "At least one template base name is required!");
-                exit(EXIT_FAILURE);
-        }
+        if (argc < 2)
+                PANIC("At least one template base name is required!\n");
 
         struct str_pool *strings = init_str_pool(STR_POOL_SIZE);
         struct node_pool *nodes = init_node_pool(NODES_POOL_SIZE);
@@ -133,10 +128,9 @@ int main(
                 split_tokens(strings, nodes, src_buf, src_buf + input_size);
 
                 FILE *file = fopen(output, "w");
-                if (file == NULL) {
-                        fprintf(stderr, "Error opening file %s\n", output);
-                        exit(EXIT_FAILURE);
-                }
+                if (file == NULL)
+                        PANIC("Error opening file %s\n", output);
+
                 print(file, base_name, nodes);
                 fclose(file);
 

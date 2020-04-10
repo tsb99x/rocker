@@ -1,18 +1,11 @@
 #include <string.h>
-#include <stdio.h>
 #include <stdlib.h>
+
+#include "macro.h"
 
 #include "string_utils.h"
 
 #define DEFAULT_STRING_SIZE 255
-
-#define REQUIRE(predicate)                                                      \
-        do {                                                                    \
-                if (!(predicate)) {                                             \
-                        fprintf(stderr, "Assertion failed '" #predicate "'\n"); \
-                        exit(EXIT_FAILURE);                                     \
-                }                                                               \
-        } while (0)
 
 void test_replace_chars(
         void
