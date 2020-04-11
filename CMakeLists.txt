@@ -17,3 +17,9 @@ add_executable(string_utils_test
     src/string_utils.c
     src/string_utils_test.c)
 add_test(string_utils string_utils_test)
+
+add_executable(printer_test
+    src/printer.c
+    src/node_pool.c
+    src/printer_test.c)
+add_test(printer printer_test)

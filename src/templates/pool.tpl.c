@@ -1,5 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include "../macro.h"
 
 #ifndef PREFIX
 #error "No PREFIX provided for pool template"
@@ -23,15 +22,11 @@ struct S *EVAL(init_,S)(
         size_t size
 ) {
         T *mem = malloc(size * sizeof(T));
-        if (mem == NULL) {
-                fprintf(stderr, "Failed to allocate memory for pool data");
-                exit(EXIT_FAILURE);
-        }
+        if (mem == NULL) 
+                PANIC("Failed to allocate memory for pool data\n");
         struct S *pool = malloc(sizeof(struct S));
-        if (pool == NULL) {
-                fprintf(stderr, "Failed to allocate memory for pool struct");
-                exit(EXIT_FAILURE);
-        }
+        if (pool == NULL)
+                PANIC("Failed to allocate memory for pool struct\n");
         pool->ptr = mem;
         pool->last = mem;
         pool->limit = mem + size;

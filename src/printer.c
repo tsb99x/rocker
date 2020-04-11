@@ -65,12 +65,10 @@ void print(
         struct node_pool *nodes
 ) {
         fprintf(file,
-                "#ifndef __%s_H__\n" \
-                "#define __%s_H__\n" \
+                "#pragma once\n" \
                 "\n" \
-                "#include \"string.h\"\n" \
-                "\n",
-                base_name, base_name);
+                "#include <string.h>\n" \
+                "\n");
 
         struct count_state c_state = {.vars_count = 0};
         for_each_node(nodes, &c_state, count_variables);
@@ -83,7 +81,8 @@ void print(
                         base_name);
                 for_each_node(nodes, &o_state, output_var_into_param);
                 fprintf(file,
-                        "};\n\n");
+                        "};\n" \
+                        "\n");
         }
 
         fprintf(file,
@@ -94,7 +93,7 @@ void print(
                 fprintf(file,
                         TAB "const struct %s_params *params,\n",
                         base_name);
-        
+
         fprintf(file,
                 TAB "char *dst\n" \
                 ") {\n" \
@@ -102,7 +101,5 @@ void print(
         for_each_node(nodes, &o_state, output_copy_process);
         fprintf(file,
                 TAB "return it - dst;\n" \
-                "}\n" \
-                "\n" \
-                "#endif\n");
+                "}\n");
 }
