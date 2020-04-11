@@ -3,7 +3,8 @@
 mkdir /build && cd /build
 cmake -GNinja \
     -DCMAKE_BUILD_TYPE=Debug \
-    -DCMAKE_C_FLAGS="--coverage" /app
+    -DCMAKE_C_FLAGS="--coverage" \
+    /app
 cmake --build .
 ctest
 
