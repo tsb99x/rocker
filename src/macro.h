@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define CONCAT(a, b) a ## b
+
+#define EVAL(x, y) CONCAT(x, y)
+
 #define PANIC(msg, ...)                              \
         do {                                         \
                 fprintf(stderr, msg, ##__VA_ARGS__); \

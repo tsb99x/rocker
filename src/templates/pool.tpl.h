@@ -1,3 +1,5 @@
+#include "../macro.h"
+
 #ifndef PREFIX
 #error "No PREFIX provided for pool template"
 #endif
@@ -6,23 +8,24 @@
 #error "No T (base type) provided for pool template"
 #endif
 
-#define CONCAT(a, b) a ## b
-#define EVAL(x, y) CONCAT(x, y)
 #define S EVAL(PREFIX, _pool)
+#define O EVAL(S, _t)
 
-struct S;
+typedef struct S O;
 
-struct S *EVAL(init_, S)(
+O *EVAL(init_, S)(
         size_t size
 );
 
 void EVAL(destroy_, S)(
-        struct S *self
+        O *self
 );
 
 void EVAL(cleanup_, S)(
-        struct S *self
+        O *self
 );
 
+#undef O
+#undef S
 #undef T
 #undef PREFIX

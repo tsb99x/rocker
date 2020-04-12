@@ -7,7 +7,7 @@
 #include "templates/pool.tpl.c"
 
 struct node *emplace_node(
-        struct node_pool *self,
+        node_pool_t *self,
         enum node_type type,
         const char *value
 ) {
@@ -20,7 +20,7 @@ struct node *emplace_node(
 }
 
 void for_each_node(
-        struct node_pool *self,
+        node_pool_t *self,
         void *state,
         node_it handler
 ) {

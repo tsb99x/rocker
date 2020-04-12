@@ -41,8 +41,8 @@ void cleanup_literal(
 }
 
 void split_tokens(
-        struct str_pool *strings,
-        struct node_pool *nodes,
+        str_pool_t *strings,
+        node_pool_t *nodes,
         char *buf,
         char *buf_end
 ) {
@@ -108,8 +108,8 @@ int main(
         if (argc < 2)
                 PANIC("At least one template base name is required!\n");
 
-        struct str_pool *strings = init_str_pool(STR_POOL_SIZE);
-        struct node_pool *nodes = init_node_pool(NODES_POOL_SIZE);
+        str_pool_t *strings = init_str_pool(STR_POOL_SIZE);
+        node_pool_t *nodes = init_node_pool(NODES_POOL_SIZE);
 
         for (int i = 1; i < argc; i++) { // skip program name
                 char *base_name = extract_filename(argv[i]);

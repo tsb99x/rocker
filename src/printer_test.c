@@ -52,7 +52,7 @@ void test_print(
 ) {
         FILE *sink = create_tmp_file();
         FILE *expect = create_tmp_file();
-        struct node_pool *nodes = init_node_pool(NODE_POOL_SIZE);
+        node_pool_t *nodes = init_node_pool(NODE_POOL_SIZE);
 
         emplace_node(nodes, LITERAL, "simple text '");
         emplace_node(nodes, VARIABLE, "variable");

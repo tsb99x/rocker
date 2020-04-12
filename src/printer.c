@@ -62,7 +62,7 @@ void output_copy_process(
 void print(
         FILE *file,
         const char *base_name,
-        struct node_pool *nodes
+        node_pool_t *nodes
 ) {
         fprintf(file,
                 "#pragma once\n" \

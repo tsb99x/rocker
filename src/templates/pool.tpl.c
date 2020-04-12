@@ -8,9 +8,8 @@
 #error "No T (base type) provided for pool template"
 #endif
 
-#define CONCAT(a, b) a ## b
-#define EVAL(x, y) CONCAT(x, y)
 #define S EVAL(PREFIX, _pool)
+#define O EVAL(S, _t)
 
 struct S {
         T *ptr;
@@ -18,7 +17,7 @@ struct S {
         T *limit;
 };
 
-struct S *EVAL(init_,S)(
+O *EVAL(init_,S)(
         size_t size
 ) {
         T *mem = malloc(size * sizeof(T));
@@ -34,17 +33,19 @@ struct S *EVAL(init_,S)(
 }
 
 void EVAL(destroy_,S)(
-        struct S *self
+        O *self
 ) {
         free(self->ptr);
         free(self);
 }
 
 void EVAL(cleanup_,S)(
-        struct S *self
+        O *self
 ) {
         self->last = self->ptr;
 }
 
+#undef O
+#undef S
 #undef T
 #undef PREFIX

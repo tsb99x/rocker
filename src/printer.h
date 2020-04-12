@@ -5,5 +5,5 @@
 void print(
         FILE *file,
         const char *base_name,
-        struct node_pool *nodes
+        node_pool_t *nodes
 );

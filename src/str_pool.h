@@ -5,7 +5,7 @@
 #include "templates/pool.tpl.h"
 
 char *copy_into_pool(
-        struct str_pool *self,
+        str_pool_t *self,
         const char *str,
         size_t len
 );
