@@ -3,20 +3,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define CONCAT(a, b) a ## b
+#define UNUSED(x)                                                              \
+        (void) x
 
-#define EVAL(x, y) CONCAT(x, y)
+#define CONCAT(a, b)                                                           \
+        a ## b
 
-#define PANIC(msg, ...)                              \
-        do {                                         \
-                fprintf(stderr, msg, ##__VA_ARGS__); \
-                exit(EXIT_FAILURE);                  \
+#define EVAL(x, y)                                                             \
+        CONCAT(x, y)
+
+#define PANIC(msg, ...)                                                        \
+        do {                                                                   \
+                fprintf(stderr, msg, ##__VA_ARGS__);                           \
+                exit(EXIT_FAILURE);                                            \
         } while (0)
 
-#define REQUIRE(predicate)                                                      \
-        do {                                                                    \
-                if (!(predicate)) {                                             \
-                        fprintf(stderr, "Assertion failed '" #predicate "'\n"); \
-                        exit(EXIT_FAILURE);                                     \
-                }                                                               \
+#define REQUIRE(predicate)                                                     \
+        do {                                                                   \
+                if (!(predicate)) {                                            \
+                        fprintf(stderr,                                        \
+                                "Assertion failed: " #predicate ", "           \
+                                "file %s, line %d\n", __FILE__, __LINE__);     \
+                        exit(EXIT_FAILURE);                                    \
+                }                                                              \
         } while (0)

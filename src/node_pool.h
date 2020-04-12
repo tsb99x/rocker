@@ -9,7 +9,7 @@
 struct node *emplace_node(
         node_pool_t *self,
         enum node_type type,
-        const char *value
+        char *value
 );
 
 typedef void node_it(struct node *, void *);

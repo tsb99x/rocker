@@ -7,5 +7,5 @@ enum node_type {
 
 struct node {
         enum node_type type;
-        const char *value;
+        char *value;
 };

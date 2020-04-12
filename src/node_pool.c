@@ -9,11 +9,11 @@
 struct node *emplace_node(
         node_pool_t *self,
         enum node_type type,
-        const char *value
+        char *value
 ) {
         struct node *ptr = self->last;
-        ptr -> type = type;
-        ptr -> value = value;
+        ptr->type = type;
+        ptr->value = value;
         if (++self->last >= self->limit)
                 PANIC("Node pool is exhausted\n");
         return ptr;
