@@ -4,6 +4,7 @@
 
 #include "str_pool.h"
 #include "node_pool.h"
+#include "status.h"
 
 bool validate_braces(
         char *str,
@@ -15,7 +16,7 @@ void cleanup_literal(
         void *vstate
 );
 
-void tokenize(
+status_t tokenize(
         str_pool_t *strings,
         node_pool_t *nodes,
         char *buf,

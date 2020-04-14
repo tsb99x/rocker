@@ -45,28 +45,43 @@ void cleanup_literal(
         truncate(it);
 }
 
-void tokenize(
+status_t tokenize(
         str_pool_t *strings,
         node_pool_t *nodes,
         char *buf,
         char *buf_end
 ) {
+        status_t err = NO_ERROR;
         char *sz_loc;
         char *op_brace;
         char *ed_brace;
 
         while ((op_brace = strstr(buf, "{{")) != NULL) {
-                sz_loc = copy_into_pool(strings, buf, op_brace - buf);
-                emplace_node(nodes, LITERAL, sz_loc);
+                err = copy_into_pool(strings, &sz_loc, buf, op_brace - buf);
+                if (err) return err;
+
+                err = emplace_node(nodes, LITERAL, sz_loc);
+                if (err) return err;
+
                 op_brace += 2; // skip "{{"
                 ed_brace = strstr(buf, "}}");
-                sz_loc = copy_into_pool(strings, op_brace, ed_brace - op_brace);
-                emplace_node(nodes, VARIABLE, sz_loc);
+
+                err = copy_into_pool(strings, &sz_loc, op_brace, ed_brace - op_brace);
+                if (err) return err;
+
+                err = emplace_node(nodes, VARIABLE, sz_loc);
+                if (err) return err;
+
                 buf = ed_brace + 2; // skip "}}"
         }
 
         if (buf < buf_end) {
-                sz_loc = copy_into_pool(strings, buf, buf_end - buf);
-                emplace_node(nodes, LITERAL, sz_loc);
+                err = copy_into_pool(strings, &sz_loc, buf, buf_end - buf);
+                if (err) return err;
+
+                err = emplace_node(nodes, LITERAL, sz_loc);
+                if (err) return err;
         }
+
+        return NO_ERROR;
 }

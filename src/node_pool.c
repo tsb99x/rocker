@@ -6,7 +6,7 @@
 #define T struct node
 #include "templates/pool.tpl.c"
 
-struct node *emplace_node(
+status_t emplace_node(
         node_pool_t *self,
         enum node_type type,
         char *value
@@ -15,8 +15,8 @@ struct node *emplace_node(
         ptr->type = type;
         ptr->value = value;
         if (++self->last >= self->limit)
-                PANIC("Node pool is exhausted\n");
-        return ptr;
+                return NODE_POOL_OVERFLOW;
+        return NO_ERROR;
 }
 
 void for_each_node(

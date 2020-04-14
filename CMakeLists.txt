@@ -15,7 +15,8 @@ add_executable(${PROJECT_NAME}
         src/str_pool.c
         src/string_utils.c
         src/printer.c
-        src/tokenizer.c)
+        src/tokenizer.c
+        src/status.c)
 
 enable_testing()
 

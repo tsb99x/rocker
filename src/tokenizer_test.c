@@ -26,22 +26,6 @@ void test_validate_braces(
         REQUIRE(res == false);
 }
 
-struct cmp_state {
-        size_t pos;
-        size_t size;
-        struct node *expected;
-};
-
-void compare(
-        struct node *it,
-        void *vstate
-) {
-        struct cmp_state *state = (struct cmp_state *) vstate;
-        REQUIRE(it->type == state->expected[state->pos].type);
-        REQUIRE(!strcmp(it->value, state->expected[state->pos].value));
-        REQUIRE(++state->pos <= state->size);
-}
-
 #ifdef WIN32
 #define STRDUP _strdup
 #else
@@ -67,6 +51,22 @@ void test_cleanup_literal(
         REQUIRE(temp.type == LITERAL);
         REQUIRE(!strcmp(temp.value, "<html><head></head></html>"));
         free(var);
+}
+
+struct cmp_state {
+        size_t pos;
+        size_t size;
+        struct node *expected;
+};
+
+void compare(
+        struct node *it,
+        void *vstate
+) {
+        struct cmp_state *state = (struct cmp_state *) vstate;
+        REQUIRE(it->type == state->expected[state->pos].type);
+        REQUIRE(!strcmp(it->value, state->expected[state->pos].value));
+        REQUIRE(++state->pos <= state->size);
 }
 
 void test_tokenize(

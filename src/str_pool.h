@@ -1,11 +1,14 @@
 #pragma once
 
+#include "status.h"
+
 #define PREFIX str
 #define T char
 #include "templates/pool.tpl.h"
 
-char *copy_into_pool(
+status_t copy_into_pool(
         str_pool_t *self,
+        char **dest,
         const char *str,
         size_t len
 );

@@ -1,5 +1,6 @@
 #include <string.h>
 
+#include "status.h"
 #include "macro.h"
 
 #include "str_pool.h"
@@ -8,17 +9,18 @@
 #define T char
 #include "templates/pool.tpl.c"
 
-char *copy_into_pool(
+status_t copy_into_pool(
         str_pool_t *self,
+        char **dest,
         const char *str,
         size_t len
 ) {
-        char *ptr = self->last;
-        if (ptr + len >= self->limit)
-                PANIC("String pool is exhausted\n");
-        memcpy(ptr, str, len);
+        *dest = self->last;
+        if (*dest + len >= self->limit)
+                return STR_POOL_OVERFLOW;
+        memcpy(*dest, str, len);
         self->last += len;
         *self->last = '\0';
         self->last++;
-        return ptr;
+        return NO_ERROR;
 }

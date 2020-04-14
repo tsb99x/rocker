@@ -21,7 +21,7 @@ O *EVAL(init_,S)(
         size_t size
 ) {
         T *mem = malloc(size * sizeof(T));
-        if (mem == NULL) 
+        if (mem == NULL)
                 PANIC("Failed to allocate memory for pool data\n");
         struct S *pool = malloc(sizeof(struct S));
         if (pool == NULL)

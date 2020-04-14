@@ -6,6 +6,9 @@
 #define UNUSED(x)                                                              \
         (void) x
 
+#define ARRLEN(x)                                                              \
+        (sizeof(x) / sizeof(x[0]))
+
 #define CONCAT(a, b)                                                           \
         a ## b
 

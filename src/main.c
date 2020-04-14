@@ -2,6 +2,7 @@
 #include <stddef.h>
 
 #include "macro.h"
+#include "status.h"
 #include "str_pool.h"
 #include "node_pool.h"
 #include "string_utils.h"
@@ -43,6 +44,13 @@ int main(
         int argc,
         char **argv
 ) {
+        status_t err = NO_ERROR;
+        FILE *file_in;
+        FILE *file_out;
+        char *base_name;
+        char input[DEF_STR_SIZE];
+        char output[DEF_STR_SIZE];
+
         if (argc < 2)
                 PANIC("At least one template base name is required!\n");
 
@@ -50,18 +58,14 @@ int main(
         node_pool_t *nodes = init_node_pool(NODES_POOL_SIZE);
 
         for (int i = 1; i < argc; i++) { // skip program name
-                char *base_name = extract_filename(argv[i]);
-
-                char input[DEF_STR_SIZE];
+                base_name = extract_filename(argv[i]);
                 snprintf(input, DEF_STR_SIZE, "%s.hbs", argv[i]);
-
-                char output[DEF_STR_SIZE];
                 snprintf(output, DEF_STR_SIZE, "%s.h", argv[i]);
 
                 printf("Generating '%s' from '%s' ... ", output, input);
                 fflush(stdout);
 
-                FILE *file_in = fopen(input, "rb");
+                file_in = fopen(input, "rb");
                 if (file_in == NULL)
                         PANIC("Error opening file %s\n", input);
                 size_t input_size = load_file_to_buf(file_in, src_buf, SRC_BUF_SIZE);
@@ -71,11 +75,12 @@ int main(
                         PANIC("Unbalanced braces found\n");
 
                 replace_chars(src_buf, input_size);
-                tokenize(strings, nodes, src_buf, src_buf + input_size);
+                err = tokenize(strings, nodes, src_buf, src_buf + input_size);
+                if (err) PANIC("%s\n", message_for_status(err));
 
                 for_each_node(nodes, NULL, cleanup_literal);
 
-                FILE *file_out = fopen(output, "w");
+                file_out = fopen(output, "w");
                 if (file_out == NULL)
                         PANIC("Error opening file %s\n", output);
                 print(file_out, base_name, nodes);
