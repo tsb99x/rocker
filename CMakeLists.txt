@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.7)
-project(rocker C)
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+project(rocker LANGUAGES C)
 set(CMAKE_C_STANDARD 11)
 
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
