@@ -12,7 +12,7 @@ void test_validate_braces(
 ) {
         char *str;
         bool res;
-        
+
         str = "valid {{ val }} string";
         res = validate_braces(str, strlen(str));
         REQUIRE(res == true);
