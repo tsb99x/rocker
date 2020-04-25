@@ -10,7 +10,7 @@ To simplify work with *Rocker*, there is a *Dockerfile* in the root of project.
 ## Manual Building
 
 To build, you will need *CMake* plus some compiler and toolchain installed.
-Any of mainstream ones will do (e.g. *GCC*, *Clang*, *MSVC*).
+On *Windows*, use *MSVC* or *Clang*, on *Linux*, use *GCC* or *Clang*.
 
 After installing, use (in your favorite shell):
 
