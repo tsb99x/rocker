@@ -12,7 +12,9 @@ bool contents_are_same(
         FILE *b
 ) {
         char cha, chb;
-        size_t line = 1;
+        size_t line;
+
+        line = 1;
         while ((cha = fgetc(a)) != EOF) {
                 chb = fgetc(b);
                 if (chb == EOF) {
@@ -40,8 +42,12 @@ bool contents_are_same(
         return true;
 }
 
-FILE *create_tmp_file() {
-        FILE *file = tmpfile();
+FILE *create_tmp_file(
+        void
+) {
+        FILE *file;
+
+        file = tmpfile();
         if (file == NULL)
                 PANIC("Failed to create tmp file\n");
         return file;
@@ -50,9 +56,12 @@ FILE *create_tmp_file() {
 void test_print(
         void
 ) {
-        FILE *sink = create_tmp_file();
-        FILE *expect = create_tmp_file();
-        node_pool_t *nodes = init_node_pool(NODE_POOL_SIZE);
+        FILE *sink, *expect;
+        node_pool_t *nodes;
+
+        sink = create_tmp_file();
+        expect = create_tmp_file();
+        nodes = init_node_pool(NODE_POOL_SIZE);
 
         emplace_node(nodes, LITERAL, "simple text '");
         emplace_node(nodes, VARIABLE, "variable");

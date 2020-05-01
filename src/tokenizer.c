@@ -10,7 +10,9 @@ bool validate_braces(
         size_t len
 ) {
         int braces_count = 0;
-        for (size_t i = 0; i < len; i++) {
+        size_t i;
+
+        for (i = 0; i < len; i++) {
                 if (str[i] == '{')
                         if (++braces_count > 2)
                                 return false;
@@ -26,17 +28,18 @@ void cleanup_literal(
         void *vstate
 ) {
         UNUSED(vstate);
+        char *it, *it_end, *first_char, *ed_brace, *ch;
 
-        char *it = node->value;
-        char *it_end = it + strlen(it);
+        it = node->value;
+        it_end = it + strlen(it);
 
-        char *first_char = skip_spaces(it);
+        first_char = skip_spaces(it);
         it_end = move_memory_block(it, first_char, it_end);
 
-        char *ed_brace = it;
+        ed_brace = it;
         while ((ed_brace = strchr(ed_brace, '>')) != NULL) {
                 ed_brace++; // skip '>'
-                char *ch = skip_spaces(ed_brace);
+                ch = skip_spaces(ed_brace);
                 if (*ch != '<')
                         continue;
                 it_end = move_memory_block(ed_brace, ch, it_end);
@@ -51,10 +54,8 @@ status_t tokenize(
         char *buf,
         char *buf_end
 ) {
+        char *sz_loc, *op_brace, *ed_brace;
         status_t err = NO_ERROR;
-        char *sz_loc;
-        char *op_brace;
-        char *ed_brace;
 
         while ((op_brace = strstr(buf, "{{")) != NULL) {
                 err = copy_into_pool(strings, &sz_loc, buf, op_brace - buf);

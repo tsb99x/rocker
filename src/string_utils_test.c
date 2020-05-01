@@ -66,9 +66,7 @@ void test_move_memory_block(
         void
 ) {
         char str[DEFAULT_STRING_SIZE];
-        char *to;
-        char *from;
-        char *res;
+        char *to, *from, *res;
 
         strcpy(str, "string . with . markers");
         to = str;

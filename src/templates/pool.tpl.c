@@ -20,10 +20,13 @@ struct S {
 O *EVAL(init_,S)(
         size_t size
 ) {
-        T *mem = malloc(size * sizeof(T));
+        T *mem;
+        struct S *pool;
+
+        mem = malloc(size * sizeof(T));
         if (mem == NULL)
                 PANIC("Failed to allocate memory for pool data\n");
-        struct S *pool = malloc(sizeof(struct S));
+        pool = malloc(sizeof(struct S));
         if (pool == NULL)
                 PANIC("Failed to allocate memory for pool struct\n");
         pool->ptr = mem;

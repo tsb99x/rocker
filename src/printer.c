@@ -64,17 +64,19 @@ void print(
         const char *base_name,
         node_pool_t *nodes
 ) {
+        size_t vars_count;
+        struct count_state c_state = {.vars_count = 0};
+        struct output_state o_state = {.file = file};
+
         fprintf(file,
                 "#pragma once\n" \
                 "\n" \
                 "#include <string.h>\n" \
                 "\n");
 
-        struct count_state c_state = {.vars_count = 0};
         for_each_node(nodes, &c_state, count_variables);
-        size_t vars_count = c_state.vars_count;
+        vars_count = c_state.vars_count;
 
-        struct output_state o_state = {.file = file};
         if (vars_count > 0) {
                 fprintf(file,
                         "struct %s_params {\n",

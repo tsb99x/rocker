@@ -11,7 +11,9 @@ status_t emplace_node(
         enum node_type type,
         char *value
 ) {
-        struct node *ptr = self->last;
+        struct node *ptr;
+
+        ptr = self->last;
         ptr->type = type;
         ptr->value = value;
         if (++self->last >= self->limit)
@@ -24,6 +26,8 @@ void for_each_node(
         void *state,
         node_it handler
 ) {
-        for (struct node *it = self->ptr; it < self->last; it++)
+        struct node *it;
+
+        for (it = self->ptr; it < self->last; it++)
                 handler(it, state);
 }
