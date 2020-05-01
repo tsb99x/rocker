@@ -1,6 +1,10 @@
 #include <string.h>
 #include <stddef.h>
 
+#ifdef WIN32
+#include <excpt.h>
+#endif
+
 #include "macro.h"
 #include "status.h"
 #include "str_pool.h"
@@ -49,14 +53,16 @@ int main(
         char **argv
 ) {
         status_t err = NO_ERROR;
-        FILE *file_in;
-        FILE *file_out;
+        FILE *file_in, *file_out;
+        char input[DEF_STR_SIZE], output[DEF_STR_SIZE];
         char *base_name;
-        char input[DEF_STR_SIZE];
-        char output[DEF_STR_SIZE];
         str_pool_t *strings;
         node_pool_t *nodes;
         size_t input_size;
+
+        #ifdef WIN32
+        __try {
+        #endif
 
         if (argc < 2)
                 PANIC("At least one template base name is required!\n");
@@ -98,6 +104,15 @@ int main(
 
                 printf("Success!\n");
         }
+
+        #ifdef WIN32
+        } __except(EXCEPTION_EXECUTE_HANDLER) {
+                fprintf(stderr,
+                        "Exception occurred, code: %u\n",
+                        GetExceptionCode());
+                return EXIT_FAILURE;
+        }
+        #endif
 
         destroy_node_pool(nodes);
         destroy_str_pool(strings);
