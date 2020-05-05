@@ -1,4 +1,4 @@
-#include "../macro.h"
+#include <macro.h>
 
 #ifndef PREFIX
 #error "No PREFIX provided for pool template"

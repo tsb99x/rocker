@@ -1,10 +1,10 @@
-#include "macro.h"
+#include <node_pool.h>
 
-#include "node_pool.h"
+#include <macro.h>
 
 #define PREFIX node
 #define T struct node
-#include "templates/pool.tpl.c"
+#include <pool.tpl.c>
 
 status_t emplace_node(
         node_pool_t *self,

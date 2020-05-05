@@ -1,9 +1,8 @@
-#include <stdlib.h>
+#include <tokenizer.h>
+
+#include <macro.h>
+
 #include <string.h>
-
-#include "macro.h"
-
-#include "tokenizer.h"
 
 #define DEF_SIZE 1024
 

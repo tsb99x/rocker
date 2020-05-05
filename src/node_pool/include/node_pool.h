@@ -1,11 +1,11 @@
 #pragma once
 
-#include "node.h"
-#include "status.h"
+#include <node.h>
+#include <status.h>
 
 #define PREFIX node
 #define T struct node
-#include "templates/pool.tpl.h"
+#include <pool.tpl.h>
 
 status_t emplace_node(
         node_pool_t *self,

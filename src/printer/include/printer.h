@@ -1,5 +1,7 @@
 #pragma once
 
+#include <node_pool.h>
+
 #include <stdio.h>
 
 void print(

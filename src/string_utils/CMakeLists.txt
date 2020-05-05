@@ -1,0 +1,6 @@
+add_library(string_utils string_utils.c)
+target_include_directories(string_utils PUBLIC include)
+
+add_executable(string_utils_test string_utils_test.c)
+target_link_libraries(string_utils_test string_utils makro)
+add_test(string_utils string_utils_test)

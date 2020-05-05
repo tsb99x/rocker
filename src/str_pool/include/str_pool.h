@@ -1,10 +1,10 @@
 #pragma once
 
-#include "status.h"
+#include <status.h>
 
 #define PREFIX str
 #define T char
-#include "templates/pool.tpl.h"
+#include <pool.tpl.h>
 
 status_t copy_into_pool(
         str_pool_t *self,

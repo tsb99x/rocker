@@ -1,10 +1,10 @@
 #pragma once
 
-#include <stdbool.h>
+#include <str_pool.h>
+#include <node_pool.h>
+#include <status.h>
 
-#include "str_pool.h"
-#include "node_pool.h"
-#include "status.h"
+#include <stdbool.h>
 
 bool validate_braces(
         char *str,

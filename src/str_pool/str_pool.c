@@ -1,13 +1,13 @@
+#include <str_pool.h>
+
+#include <status.h>
+#include <macro.h>
+
 #include <string.h>
-
-#include "status.h"
-#include "macro.h"
-
-#include "str_pool.h"
 
 #define PREFIX str
 #define T char
-#include "templates/pool.tpl.c"
+#include <pool.tpl.c>
 
 status_t copy_into_pool(
         str_pool_t *self,

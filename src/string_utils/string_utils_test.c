@@ -1,9 +1,8 @@
+#include <string_utils.h>
+
+#include <macro.h>
+
 #include <string.h>
-#include <stdlib.h>
-
-#include "macro.h"
-
-#include "string_utils.h"
 
 #define DEFAULT_STRING_SIZE 255
 

@@ -1,9 +1,9 @@
+#include <tokenizer.h>
+
+#include <macro.h>
+#include <string_utils.h>
+
 #include <string.h>
-
-#include "macro.h"
-#include "string_utils.h"
-
-#include "tokenizer.h"
 
 bool validate_braces(
         char *str,

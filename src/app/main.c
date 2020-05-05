@@ -1,17 +1,17 @@
-#include <string.h>
-#include <stddef.h>
+#include <macro.h>
+#include <node_pool.h>
+#include <printer.h>
+#include <status.h>
+#include <str_pool.h>
+#include <string_utils.h>
+#include <tokenizer.h>
 
 #ifdef WIN32
 #include <excpt.h>
 #endif
 
-#include "macro.h"
-#include "status.h"
-#include "str_pool.h"
-#include "node_pool.h"
-#include "string_utils.h"
-#include "tokenizer.h"
-#include "printer.h"
+#include <stddef.h>
+#include <string.h>
 
 #define STR_POOL_SIZE 65535
 #define NODES_POOL_SIZE 256

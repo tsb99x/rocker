@@ -1,9 +1,9 @@
+#include <printer.h>
+
+#include <macro.h>
+#include <node_pool.h>
+
 #include <stdbool.h>
-
-#include "macro.h"
-#include "node_pool.h"
-
-#include "printer.h"
 
 #define NODE_POOL_SIZE 32
 

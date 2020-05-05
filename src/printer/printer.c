@@ -1,9 +1,9 @@
+#include <printer.h>
+
+#include <node_pool.h>
+
 #include <stddef.h>
 #include <string.h>
-
-#include "node_pool.h"
-
-#include "printer.h"
 
 #define TAB "        "
 
