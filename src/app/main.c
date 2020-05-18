@@ -6,10 +6,6 @@
 #include <string_utils.h>
 #include <tokenizer.h>
 
-#ifdef WIN32
-#include <excpt.h>
-#endif
-
 #include <stddef.h>
 #include <string.h>
 
@@ -60,10 +56,6 @@ int main(
         node_pool_t *nodes;
         size_t input_size;
 
-        #ifdef WIN32
-        __try {
-        #endif
-
         if (argc < 2)
                 PANIC("At least one template base name is required!\n");
 
@@ -104,15 +96,6 @@ int main(
 
                 printf("Success!\n");
         }
-
-        #ifdef WIN32
-        } __except(EXCEPTION_EXECUTE_HANDLER) {
-                fprintf(stderr,
-                        "Exception occurred, code: %u\n",
-                        GetExceptionCode());
-                return EXIT_FAILURE;
-        }
-        #endif
 
         destroy_node_pool(nodes);
         destroy_str_pool(strings);
